@@ -5,6 +5,7 @@ import { ShiftRoutingModule } from './shift-routing.module';
 import { ShiftPageComponent } from './shift-page/shift-page.component';
 import { FormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     ShiftPageComponent
@@ -12,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ShiftRoutingModule,
-    FormsModule
+    FormsModule,
+    
   ]
 })
 export class ShiftModule { }

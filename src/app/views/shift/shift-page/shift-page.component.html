@@ -1,17 +1,26 @@
-<div class="shift-form-container">
-    <form (ngSubmit)="addShift()">
-      <div class="form-group">
-        <label for="name">Nombre del Turno</label>
-        <input type="text" id="name" [(ngModel)]="newShift.name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="start_time">Hora de Inicio</label>
-        <input type="time" id="start_time" [(ngModel)]="newShift.start_time" name="start_time" required>
-      </div>
-      <div class="form-group">
-        <label for="end_time">Hora de Fin</label>
-        <input type="time" id="end_time" [(ngModel)]="newShift.end_time" name="end_time" required>
-      </div>
-      <button type="submit" class="btn-submit">Agregar Turno</button>
-    </form>
-  </div>
+<div class="shift-form">
+  <form #shiftForm="ngForm" (ngSubmit)="addShift()">
+    <div class="form-group">
+      <label for="name">Nombre del Turno:</label>
+      <input type="text" id="name" class="form-control" [(ngModel)]="newShift.name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="start_time">Hora de Inicio:</label>
+      <input type="time" id="start_time" class="form-control" [(ngModel)]="newShift.start_time" name="start_time" required>
+    </div>
+    <div class="form-group">
+      <label for="end_time">Hora de Fin:</label>
+      <input type="time" id="end_time" class="form-control" [(ngModel)]="newShift.end_time" name="end_time" required>
+    </div>
+    <!-- Nuevos campos para intervalos -->
+    <div class="form-group">
+      <label for="early_entry_interval">Temprano Hasta:</label>
+      <input type="time" id="early_entry_interval" class="form-control" [(ngModel)]="newShift.early_tolerance_until" name="early_entry_interval" required>
+    </div>
+    <div class="form-group">
+      <label for="late_entry_interval">Tarde Hasta:</label>
+      <input type="time" id="late_entry_interval" class="form-control" [(ngModel)]="newShift.late_tolerance_until" name="late_entry_interval" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Turno</button>
+  </form>
+</div>
