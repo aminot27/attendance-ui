@@ -1,4 +1,5 @@
 export interface IStudent {
+  student_id: Number;
   name: string;
   last_name: string;
   gender: 'M' | 'F'; 

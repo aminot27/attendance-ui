@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { StudentService } from '../../../services/api/student.service';
-import { ParentService } from '../../../services/api/parent.service'; // Asumiendo que existe este servicio
-import { ShiftService } from '../../../services/api/shift.service'; // Asumiendo que existe este servicio
-import { IStudent } from '../../../models/student.model';
+import { ParentService } from '../../../services/api/parent.service';
+import { ShiftService } from '../../../services/api/shift.service';
 
 @Component({
   selector: 'app-student-form',
@@ -13,24 +12,26 @@ import { IStudent } from '../../../models/student.model';
 })
 export class StudentFormComponent implements OnInit {
   studentForm: FormGroup;
-  parents: any[] = []; // Asumiendo que tienes un modelo o interfaz para Parents
-  shifts: any[] = []; // Asumiendo que tienes un modelo o interfaz para Shifts
+  parents: any[] = [];
+  shifts: any[] = [];
 
-  constructor(private fb: FormBuilder,
-              private studentService: StudentService,
-              private parentService: ParentService, // Inyecta el ParentService
-              private shiftService: ShiftService, // Inyecta el ShiftService
-              private toastr: ToastrService) { }
+  constructor(
+    private fb: FormBuilder,
+    private studentService: StudentService,
+    private parentService: ParentService,
+    private shiftService: ShiftService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.studentForm = this.fb.group({
-      name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      name: [''],
+      last_name: [''],
       gender: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.minLength(8)]],
-      phone_number: ['', Validators.required],
-      parent: [null, Validators.required],
-      shift: [null, Validators.required],
+      dni: [''],
+      phone_number: [''],
+      parent: [null], // Asegúrate de que este campo se actualice correctamente
+      shift: [null], // Asegúrate de que este campo se actualice correctamente
     });
 
     this.loadParents();
@@ -39,20 +40,32 @@ export class StudentFormComponent implements OnInit {
 
   loadParents() {
     this.parentService.getParents().subscribe(parents => {
-      this.parents = parents;
+      this.parents = parents.map(parent => ({
+        ...parent,
+        id: Number(parent.parent_id) // Asegúrate de que los IDs sean números
+      }));
     });
   }
 
   loadShifts() {
     this.shiftService.getShifts().subscribe(shifts => {
-      this.shifts = shifts;
+      this.shifts = shifts.map(shift => ({
+        ...shift,
+        id: Number(shift.shift_id) // Asegúrate de que los IDs sean números
+      }));
     });
   }
 
   onSubmit() {
     if (this.studentForm.valid) {
-      console.log('Sending POST with data:', JSON.stringify(this.studentForm.value));
-      this.studentService.addStudent(this.studentForm.value).subscribe({
+      const formData = {
+        ...this.studentForm.value,
+        parent: Number(this.studentForm.value.parent), // Convierte a número
+        shift: Number(this.studentForm.value.shift) // Convierte a número
+      };
+
+      console.log('Sending POST with data:', JSON.stringify(formData));
+      this.studentService.addStudent(formData).subscribe({
         next: (student) => {
           this.toastr.success('Student added successfully');
           this.studentForm.reset();

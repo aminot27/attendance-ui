@@ -1,25 +1,29 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { GlobalKeyListenerService } from '../../../services/global-key-listener.service';
+import { Component, OnInit } from '@angular/core';
+import { IAttendanceRecord } from '../../../models/attendance_record.model'; // Asegúrate de que la ruta sea correcta
+import { AttendanceService } from '../../../services/api/attendance.service'; // Asegúrate de que la ruta sea correcta
 
 @Component({
   selector: 'app-attendance-table',
   templateUrl: './attendance-table.component.html',
   styleUrls: ['./attendance-table.component.scss']
 })
-export class AttendanceTableComponent implements OnInit, OnDestroy {
-  private dniSubscription: Subscription;
+export class AttendanceTableComponent implements OnInit {
+  attendanceRecords: IAttendanceRecord[] = [];
 
-  constructor(private keyListenerService: GlobalKeyListenerService) {}
+  constructor(private attendanceService: AttendanceService) {}
 
-  ngOnInit() {
-    this.dniSubscription = this.keyListenerService.dniScanned$.subscribe(dni => {
-      // Aquí lógica para buscar los datos del estudiante y actualizar la vista
-      console.log(`DNI escaneado desde attendance table: ${dni}`);
-    });
+  ngOnInit(): void {
+    this.loadAttendanceRecords();
   }
 
-  ngOnDestroy() {
-    this.dniSubscription.unsubscribe();
+  loadAttendanceRecords(): void {
+    this.attendanceService.getAttendanceRecords().subscribe(
+      (records) => {
+        this.attendanceRecords = records;
+      },
+      (error) => {
+        console.error('Error al cargar los registros de asistencia', error);
+      }
+    );
   }
 }

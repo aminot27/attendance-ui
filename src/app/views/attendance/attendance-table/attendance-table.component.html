@@ -1,0 +1,25 @@
+<div *ngIf="attendanceRecords.length; else noRecords">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Estudiante</th>
+          <th>Hora de Entrada</th>
+          <th>Estado</th>
+          <th>Turno</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of attendanceRecords">
+          <td>{{ record.attendance_id }}</td>
+          <td>{{ record.student }}</td>
+          <td>{{ record.entry_time }}</td>
+          <td>{{ record.status }}</td>
+          <td>{{ record.shift }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noRecords>
+    <p>No hay registros de asistencia para mostrar.</p>
+  </ng-template>
