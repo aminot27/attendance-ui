@@ -1,0 +1,17 @@
+<div class="shift-form-container">
+    <form (ngSubmit)="addShift()">
+      <div class="form-group">
+        <label for="name">Nombre del Turno</label>
+        <input type="text" id="name" [(ngModel)]="newShift.name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="start_time">Hora de Inicio</label>
+        <input type="time" id="start_time" [(ngModel)]="newShift.start_time" name="start_time" required>
+      </div>
+      <div class="form-group">
+        <label for="end_time">Hora de Fin</label>
+        <input type="time" id="end_time" [(ngModel)]="newShift.end_time" name="end_time" required>
+      </div>
+      <button type="submit" class="btn-submit">Agregar Turno</button>
+    </form>
+  </div>
