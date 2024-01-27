@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { Subject, fromEvent } from 'rxjs';
 import { filter, buffer, debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalKeyListenerService {
+  private dniScannedSource = new Subject<string>();
+  dniScanned$ = this.dniScannedSource.asObservable();
 
   constructor() { }
 
@@ -34,6 +36,7 @@ export class GlobalKeyListenerService {
   }
 
   private registerDni(dni: string) {
+    this.dniScannedSource.next(dni);
     console.log(`Registrando DNI: ${dni}`);
   }
 }
