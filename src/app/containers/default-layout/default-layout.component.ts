@@ -28,7 +28,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     const roles = this._authService.userRoleValues;
-    if (roles.length != 0) {
+    if (roles && roles.length != 0) {
       this.currentRol = roles[0];
       this.setNavigationItems(this.currentRol);
     }
@@ -55,7 +55,7 @@ export class DefaultLayoutComponent implements OnInit {
     modules.forEach(module => {
       const item = {
         name: module.module,
-        url: module.url,
+        url: module.url ? module.url : '/default-url',
         iconComponent: {name: module.icon},
         children: module.views.map(view => {
           return {

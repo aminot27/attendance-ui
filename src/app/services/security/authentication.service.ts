@@ -64,7 +64,7 @@ export class AuthenticationService extends BaseService {
   }
 
   public get userRoleValues(): UserRolModel[] {
-    return this.userRolesSubject.value;
+    return this.userRolesSubject.value ?? [];
   }
 
   public authenticate(username: string, password: string): void {
@@ -83,7 +83,7 @@ export class AuthenticationService extends BaseService {
     super.sendRequest<any>(this.AUTHORIZATION_API, this.GET)
       .subscribe((data) => {
           const userRoles = data instanceof Array ? data.map(rol => new UserRolModel(rol)) : [];
-          if (userRoles.length !== 0) {
+          if (userRoles) {
             localStorage.setItem('roles', JSON.stringify(userRoles));
             this.userRolesSubject.next(userRoles);
             this._router.navigate(['/pages/inscriptions/candidates']);
