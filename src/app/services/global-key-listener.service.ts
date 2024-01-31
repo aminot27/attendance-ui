@@ -10,8 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 export class GlobalKeyListenerService {
   private dniScannedSource = new Subject<string>(); // Cambiado para emitir solo el DNI como string
   dniScanned$ = this.dniScannedSource.asObservable();
-
-  constructor(private scanService: ScanService) { } // Inyecta ScanService
+  public dniRegistrationSuccess = new Subject<void>();
+  constructor(private scanService: ScanService, private toastr: ToastrService) { } // Inyecta ScanService
 
   startListening() {
     fromEvent(document, 'keydown')
@@ -40,9 +40,12 @@ export class GlobalKeyListenerService {
   private registerDni(dni: string) {
     this.dniScannedSource.next(dni);
     this.scanService.sendDni(dni).subscribe({
-      next: (response) => console.log('DNI enviado con éxito', response),
+      next: (response) =>{
+        this.toastr.success('Registro de asistencia actualizado');
+        this.dniRegistrationSuccess.next();
+      },
       error: (error) => {
-        
+        this.toastr.error('Error al registrar asistencia');
         }
     });
   }
