@@ -11,8 +11,12 @@ export class ShiftPageComponent implements OnInit {
     name: '',
     start_time: '',
     end_time: '',
-    early_tolerance_until: '',
-    late_tolerance_until: '',
+    early_start: '',
+    early_end: '',
+    late_start: '',
+    late_end: '',
+    leave_start: '',
+    leave_end: '',
   };
 
   shifts: IShift[] = [];
@@ -20,34 +24,34 @@ export class ShiftPageComponent implements OnInit {
   constructor(private shiftService: ShiftService) {}
 
   ngOnInit() {
-    //this.loadShifts();
+    this.loadShifts();
   }
 
-  // loadShifts() {
-  //   this.shiftService.getShifts().subscribe({
-  //     next: (shifts) => {
-  //       this.shifts = shifts;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al cargar los turnos', error);
-  //     }
-  //   });
-  // }
+  loadShifts() {
+    this.shiftService.getShifts().subscribe({
+      next: (shifts) => {
+        this.shifts = shifts;
+      },
+      error: (error) => {
+        console.error('Error al cargar los turnos', error);
+      }
+    });
+  }
 
-  addShift() {
-    // Validación básica para asegurarse de que todos los campos requeridos están presentes
-    if (this.newShift.name && this.newShift.start_time && this.newShift.end_time && this.newShift.early_tolerance_until && this.newShift.late_tolerance_until) {
+  addShift() { if (this.newShift.name && this.newShift.start_time && this.newShift.end_time) {
       this.shiftService.addShift(this.newShift).subscribe({
         next: (shift) => {
-          // Si el turno se agrega exitosamente, lo añadimos a la lista de turnos en la UI
           this.shifts.push(shift);
-          // Reseteamos el formulario para permitir la entrada de un nuevo turno
           this.newShift = {
             name: '',
             start_time: '',
             end_time: '',
-            early_tolerance_until: '',
-            late_tolerance_until: '',
+            early_start: '',
+            early_end: '',
+            late_start: '',
+            late_end: '',
+            leave_start: '',
+            leave_end: '',
           };
           console.log('Turno agregado con éxito');
         },

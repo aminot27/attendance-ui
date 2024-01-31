@@ -3,6 +3,10 @@ export interface IShift{
     name: string;
     start_time: string;
     end_time: string;
-    early_tolerance_until: string;
-    late_tolerance_until: string;
+    early_start?: string;
+    early_end?: string;
+    late_start?: string;
+    late_end?: string;
+    leave_start?: string;
+    leave_end?: string;
 }

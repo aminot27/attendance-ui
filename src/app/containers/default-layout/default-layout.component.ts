@@ -27,10 +27,17 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const roles = this._authService.userRoleValues;
-    if (roles && roles.length != 0) {
+    let roles = this._authService.userRoleValues;
+    if (!roles || roles.length === 0) {
+      const storedRoles = localStorage.getItem('roles');
+      roles = storedRoles ? JSON.parse(storedRoles) : [];
+    }
+    
+    if (roles.length > 0) {
       this.currentRol = roles[0];
       this.setNavigationItems(this.currentRol);
+    } else {
+      console.error('No se encontraron roles para el usuario');
     }
   }
 

@@ -52,6 +52,7 @@ export class ModuleModel implements IModuleModel {
       module: this.module,
       order: this.order,
       code: this.code,
+      url: this.url,
       views: this.views.map(view => view.toJSON())
     }
   }

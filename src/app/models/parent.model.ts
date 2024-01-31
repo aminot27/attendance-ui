@@ -1,8 +1,8 @@
 export interface IParent {
     parent_id: Number,
     name: string;
-    last_Name: string;
+    last_name: string;
     gender: 'M' | 'F';
     dni: string;
-    phone_Number: string;
+    phone_number: string;
   }
