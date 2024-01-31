@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { filter, buffer, debounceTime } from 'rxjs/operators';
+import { ScanService } from '../services/api/scan.service'; // Asegúrate de importar ScanService correctamente
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalKeyListenerService {
-  private dniScannedSource = new Subject<string>();
+  private dniScannedSource = new Subject<string>(); // Cambiado para emitir solo el DNI como string
   dniScanned$ = this.dniScannedSource.asObservable();
 
-  constructor() { }
+  constructor(private scanService: ScanService) { } // Inyecta ScanService
 
   startListening() {
     fromEvent(document, 'keydown')
@@ -26,7 +27,7 @@ export class GlobalKeyListenerService {
   }
 
   private isDniSequence(keyEvents: KeyboardEvent[]): boolean {
-    return true; 
+    return keyEvents.length > 0 && keyEvents[keyEvents.length - 1].key === 'Enter';
   }
 
   private extractDniFromSequence(keyEvents: KeyboardEvent[]): string {
@@ -37,6 +38,9 @@ export class GlobalKeyListenerService {
 
   private registerDni(dni: string) {
     this.dniScannedSource.next(dni);
-    console.log(`Registrando DNI: ${dni}`);
+    this.scanService.sendDni(dni).subscribe({
+      next: (response) => console.log('DNI enviado con éxito', response),
+      error: (error) => console.error('Error al enviar el DNI', error)
+    });
   }
 }
