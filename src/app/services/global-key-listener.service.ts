@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { filter, buffer, debounceTime } from 'rxjs/operators';
 import { ScanService } from '../services/api/scan.service'; // Asegúrate de importar ScanService correctamente
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,9 @@ export class GlobalKeyListenerService {
     this.dniScannedSource.next(dni);
     this.scanService.sendDni(dni).subscribe({
       next: (response) => console.log('DNI enviado con éxito', response),
-      error: (error) => console.error('Error al enviar el DNI', error)
+      error: (error) => {
+        
+        }
     });
   }
 }
