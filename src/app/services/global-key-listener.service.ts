@@ -45,7 +45,7 @@ export class GlobalKeyListenerService {
         this.dniRegistrationSuccess.next();
       },
       error: (error) => {
-        this.toastr.error('Error al registrar asistencia');
+        this.toastr.error('Error, Estudiante fuera de turno!');
         }
     });
   }
