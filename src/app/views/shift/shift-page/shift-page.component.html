@@ -16,36 +16,36 @@
       </div>
     </div>
 
-    <h3>Intervalos de Tolerancia</h3>
+    <h3>Intervalos de Entrada</h3>
     <div class="row">
       <div class="col-md-6 mb-3">
-        <label for="early_start">Inicio Temprano:</label>
-        <input type="time" id="early_start" class="form-control" [(ngModel)]="newShift.early_start" name="early_start" placeholder="HH:MM">
+        <label for="entry_start">Inicio Hora de Entrada:</label>
+        <input type="time" id="entry_start" class="form-control" [(ngModel)]="newShift.entry_start" name="entry_start" placeholder="HH:MM">
       </div>
       <div class="col-md-6 mb-3">
-        <label for="early_end">Fin Temprano:</label>
-        <input type="time" id="early_end" class="form-control" [(ngModel)]="newShift.early_end" name="early_end" placeholder="HH:MM">
+        <label for="entry_end">Fin Hora de Entrada:</label>
+        <input type="time" id="entry_end" class="form-control" [(ngModel)]="newShift.entry_end" name="entry_end" placeholder="HH:MM">
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 mb-3">
-        <label for="late_start">Inicio Tarde:</label>
-        <input type="time" id="late_start" class="form-control" [(ngModel)]="newShift.late_start" name="late_start" placeholder="HH:MM">
+        <label for="early_until">Temprado hasta:</label>
+        <input type="time" id="early_until" class="form-control" [(ngModel)]="newShift.early_until" name="early_until" placeholder="HH:MM">
       </div>
       <div class="col-md-6 mb-3">
-        <label for="late_end">Fin Tarde:</label>
-        <input type="time" id="late_end" class="form-control" [(ngModel)]="newShift.late_end" name="late_end" placeholder="HH:MM">
+        <label for="late_until">Tarde hasta:</label>
+        <input type="time" id="late_until" class="form-control" [(ngModel)]="newShift.late_until" name="late_until" placeholder="HH:MM">
       </div>
     </div>
 
     <h3>Intervalos de Salida</h3>
     <div class="row">
       <div class="col-md-6 mb-3">
-        <label for="leave_start">Inicio Salida:</label>
+        <label for="leave_start">Inicio Hora de Salida:</label>
         <input type="time" id="leave_start" class="form-control" [(ngModel)]="newShift.leave_start" name="leave_start" placeholder="HH:MM">
       </div>
       <div class="col-md-6 mb-3">
-        <label for="leave_end">Fin Salida:</label>
+        <label for="leave_end">Fin Hora de Salida:</label>
         <input type="time" id="leave_end" class="form-control" [(ngModel)]="newShift.leave_end" name="leave_end" placeholder="HH:MM">
       </div>
     </div>
@@ -54,33 +54,5 @@
   </form>
 </div>
 
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Nombre del Turno</th>
-        <th>Hora de Inicio</th>
-        <th>Hora de Fin</th>
-        <th>Inicio Temprano</th>
-        <th>Fin Temprano</th>
-        <th>Inicio Tarde</th>
-        <th>Fin Tarde</th>
-        <th>Inicio Salida</th>
-        <th>Fin Salida</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let shift of shifts">
-        <td>{{ shift.name }}</td>
-        <td>{{ shift.start_time }}</td>
-        <td>{{ shift.end_time }}</td>
-        <td>{{ shift.early_start }}</td>
-        <td>{{ shift.early_end }}</td>
-        <td>{{ shift.late_start }}</td>
-        <td>{{ shift.late_end }}</td>
-        <td>{{ shift.leave_start }}</td>
-        <td>{{ shift.leave_end }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<app-shift-list></app-shift-list>

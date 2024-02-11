@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class GlobalKeyListenerService {
-  private dniScannedSource = new Subject<string>(); // Cambiado para emitir solo el DNI como string
+  private dniScannedSource = new Subject<string>(); 
   dniScanned$ = this.dniScannedSource.asObservable();
   public dniRegistrationSuccess = new Subject<void>();
   constructor(private scanService: ScanService, private toastr: ToastrService) { } // Inyecta ScanService
