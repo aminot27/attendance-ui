@@ -2,6 +2,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IShift } from '../../../models/shift.model';
 import { ShiftService } from '../../../services/api/shift.service';
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-shift-page',
@@ -22,7 +23,7 @@ export class ShiftPageComponent implements OnInit {
   };
  
 
-
+  private unsubscribe$: Subject<any> = new Subject<any>();
   shifts: IShift[] = [];
   dataSource = new MatTableDataSource<IShift>(this.shifts);
 
@@ -42,17 +43,23 @@ export class ShiftPageComponent implements OnInit {
       }
     });
   }
+  
+  updateTableData(): void {
+    this.shiftService.getShifts()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => {
+        this.dataSource.data = res;
+      });
+  }
 
   addShift() {
     if (this.newShift.name && this.newShift.start_time && this.newShift.end_time) {
       this.shiftService.addShift(this.newShift).subscribe({
         next: (shift) => {
-          const data = this.dataSource.data;
-          data.push(shift);
-          this.dataSource.data = data; // Esto notifica a MatTableDataSource del cambio
+          // Elimina la actualización directa de dataSource.data aquí
+          this.updateTableData(); // Esto recargará todos los turnos, incluyendo el nuevo
           this.resetNewShift();
           console.log('Turno agregado con éxito');
-          
         },
         error: (error) => {
           console.error('Error al agregar el turno', error);
