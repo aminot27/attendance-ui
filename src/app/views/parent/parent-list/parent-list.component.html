@@ -1,1 +1,8 @@
-<p>parent-list works!</p>
+<app-generic-table
+  [displayedColumns]="displayedColumns"
+  [columnNames]="columnNames"
+  [dataSource]="dataSource"
+  (edit)="openEditModal($event)"
+  (delete)="onDelete($event)"
+  >
+</app-generic-table>

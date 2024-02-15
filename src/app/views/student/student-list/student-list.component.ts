@@ -10,6 +10,7 @@ import { IStudent } from 'src/app/models/student.model';
 import { StudentEditComponent } from '../student-edit/student-edit.component'; // Asegúrate de crear este componente
 // import { StudentDeleteComponent } from '../student-delete/student-delete.component'; // Asegúrate de crear este componente
 import { CrudEventsService } from 'src/app/services/crud-events.service'; // Si usas un servicio para manejar eventos CRUD
+import { StudentUpdateService } from 'src/app/services/student-update.service';
 
 @Component({
   selector: 'app-student-list',
@@ -25,7 +26,8 @@ export class StudentListComponent {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
-    private crudEventsService: CrudEventsService 
+    private crudEventsService: CrudEventsService,
+    private studentUpdateService: StudentUpdateService
   ) {
     this.dataSource = new MatTableDataSource<IStudent>([]);
   }
@@ -42,6 +44,12 @@ export class StudentListComponent {
       .subscribe(() => {
         this.updateTableData();
       });
+
+    this.studentUpdateService.studentAdded$
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(() => {
+      this.updateTableData(); // Actualiza la tabla cuando se añade un estudiante
+    });
   }
 
   updateTableData(): void {

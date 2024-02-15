@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StudentService } from '../../../services/api/student.service';
 import { ParentService } from '../../../services/api/parent.service';
 import { ShiftService } from '../../../services/api/shift.service';
+import { StudentUpdateService } from '../../../services/student-update.service';
 
 @Component({
   selector: 'app-student-form',
@@ -20,7 +21,8 @@ export class StudentFormComponent implements OnInit {
     private studentService: StudentService,
     private parentService: ParentService,
     private shiftService: ShiftService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private studentUpdateService: StudentUpdateService
   ) { }
 
   ngOnInit() {
@@ -69,6 +71,7 @@ export class StudentFormComponent implements OnInit {
         next: (student) => {
           this.toastr.success('Student added successfully');
           this.studentForm.reset();
+          this.studentUpdateService.notifyStudentAdded(); 
         },
         error: (error) => {
           this.toastr.error('Failed to add student');

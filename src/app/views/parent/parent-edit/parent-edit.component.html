@@ -1,1 +1,8 @@
-<p>parent-edit works!</p>
+<mat-dialog-content>
+    <app-generic-form 
+      [title]="title"
+      [config]="parentFormConfig" 
+      (submitEvent)="onSubmit($event)">
+    </app-generic-form>
+  </mat-dialog-content>
+  

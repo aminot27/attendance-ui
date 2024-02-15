@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ParentService } from '../../../services/api/parent.service';
 import { IParent } from '../../../models/parent.model';
+import { StudentUpdateService } from 'src/app/services/student-update.service';
+import { ParentUpdateService } from 'src/app/services/parent-update.service';
 
 @Component({
   selector: 'app-parent-form',
@@ -14,6 +16,7 @@ export class ParentFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private parentService: ParentService,
+              private parentUpdateService: ParentUpdateService,
               private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -33,6 +36,7 @@ export class ParentFormComponent implements OnInit {
         next: (parent) => {
           this.toastr.success('Parent added successfully');
           this.parentForm.reset();
+          this.parentUpdateService.notifyParentAdded();
         },
         error: (error) => {
           this.toastr.error('Failed to add parent');

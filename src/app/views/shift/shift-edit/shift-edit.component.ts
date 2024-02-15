@@ -21,13 +21,13 @@ export class ShiftEditComponent implements OnDestroy {
     private toastr: ToastrService
   ) {
     this.shiftFormConfig = [
-      { name: 'name', label: 'Nombre', type: 'text', required: true, maxLength: 100, value: this.data.shift.name },
-      { name: 'start_time', label: 'Hora de inicio', type: 'time', required: true, value: this.data.shift.start_time },
-      { name: 'end_time', label: 'Hora de fin', type: 'time', required: true, value: this.data.shift.end_time },
-      { name: 'entry_start', label: 'Inicio Temprano', type: 'time', required: false, value: this.data.shift.entry_start },
-      { name: 'entry_end', label: 'Fin Temprano', type: 'time', required: false, value: this.data.shift.entry_end },
-      { name: 'early_until', label: 'Early until', type: 'time', required: false, value: this.data.shift.early_until },
-      { name: 'late_until', label: 'Late until', type: 'time', required: false, value: this.data.shift.late_until },
+      { name: 'name', label: 'Nombre urno', type: 'text', required: true, maxLength: 100, value: this.data.shift.name },
+      { name: 'start_time', label: 'Turno inicio', type: 'time', required: true, value: this.data.shift.start_time },
+      { name: 'end_time', label: 'Turno fin', type: 'time', required: true, value: this.data.shift.end_time },
+      { name: 'entry_start', label: 'Inicio Hora Entrada', type: 'time', required: false, value: this.data.shift.entry_start },
+      { name: 'entry_end', label: 'Fin Hora Entrada', type: 'time', required: false, value: this.data.shift.entry_end },
+      { name: 'early_until', label: 'Temprano Hasta', type: 'time', required: false, value: this.data.shift.early_until },
+      { name: 'late_until', label: 'Tarde Hasta', type: 'time', required: false, value: this.data.shift.late_until },
       { name: 'leave_start', label: 'Inicio Salida', type: 'time', required: false, value: this.data.shift.leave_start },
       { name: 'leave_end', label: 'Fin Salida', type: 'time', required: false, value: this.data.shift.leave_end }
     ];
