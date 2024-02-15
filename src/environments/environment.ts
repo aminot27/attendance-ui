@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'https://c05cd604e737dc937e691eac3211ec86.loophole.site'
+  host: 'https://3539106fc4d12331dc02d2b614cdb755.loophole.site'
 };
 
 /*
