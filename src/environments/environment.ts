@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://127.0.0.1:8000'
+  host: 'https://c05cd604e737dc937e691eac3211ec86.loophole.site'
 };
 
 /*
